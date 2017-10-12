@@ -26,7 +26,7 @@ Enemy.prototype.update = function(dt) {
     let playerBox = {x: player.x, y: player.y, width: 10, height: 10};
 
     if ((playerBox.x < enemyBox.x + enemyBox.width) && ( playerBox.x + playerBox.width > enemyBox.x ) &&
-        (playerBox.y > enemyBox.y - enemyBox.height) && (playerBox.height - playerBox.y < enemyBox.y) )
+        (playerBox.y > enemyBox.y - enemyBox.height) && (playerBox.height + playerBox.y < enemyBox.y) )
         {
         reset = true;
      }
