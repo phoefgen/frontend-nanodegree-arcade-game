@@ -3,7 +3,7 @@ frontend-nanodegree-arcade-game
 
 ## Instructions: Install
 
-All code is run client side. To deploy, serve the files via HTTP.
+All code is run client side. To deploy, open index.html in a browser.
 
 Example code can be seen running here: https://phoefgen.github.io/frontend-nanodegree-arcade-game/
 
