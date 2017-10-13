@@ -19,37 +19,6 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    let reset = false;
-
-    /* This section from: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection */
-    let enemyBox = {x: this.x, y: this.y, width: 20, height: 10};
-    let playerBox = {x: player.x, y: player.y, width: 10, height: 10};
-
-    if ((playerBox.x < enemyBox.x + enemyBox.width) && ( playerBox.x + playerBox.width > enemyBox.x ) &&
-        (playerBox.y > enemyBox.y - enemyBox.height) && (playerBox.height + playerBox.y < enemyBox.y) )
-        {
-        reset = true;
-     }
-    /*                              End Referenced Section                                                */
-
-    // Player reaches target.
-    if (player.y === -50) {
-        reset = true;
-    }
-
-    if (reset){
-        // Reset player position.
-        console.log("At time of reset:\n  Player X: " + player.x + " Player Y:  " + player.y);
-        console.log("Enemy  X:  " + this.x + " Enemy Y: " + this.y );
-        player.x = 200;
-        player.y = 400;
-        for (enemy of allEnemies) {
-            enemy.x = -100;
-        }
-        alert("Game Over! Restarting!");
-        console.log("game over");
-    }
-
     // Game is not over, Update Passed in enemy
     // Loop Enemies
     if ( this.x > 510 ){
@@ -63,6 +32,8 @@ Enemy.prototype.render = function(enemy) {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -71,7 +42,6 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y = 400;
-    this.speed = 1;
 }
 Player.prototype.handleInput = function(key){
     if (key === 'left' && this.x >= 0) {
@@ -96,8 +66,32 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
+    // Check for collisions with enemies.
+    for (var i = 0; i < 3; i++) {
+        if ((this.x < allEnemies[i].x + 72) && (this.x + 72 > allEnemies[i].x) && (this.y < allEnemies[i].y + 72) && (this.y + 72 > allEnemies[i].y)) {
+           this.reset();
+        }
+    }
+    // Player reaches target.
+    if (player.y === -50) {
+        this.reset();
+    }
 };
+
+Player.prototype.reset = function() {
+    // Reset player position.
+    console.log("At time of reset:\n  Player X: " + player.x + " Player Y:  " + player.y);
+    console.log("Enemy  X:  " + this.x + " Enemy Y: " + this.y );
+    player.x = 200;
+    player.y = 400;
+    for (enemy of allEnemies) {
+        enemy.x = -100;
+    }
+    alert("Game Over! Restarting!");
+    console.log("game over");
+};
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
