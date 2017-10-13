@@ -1,3 +1,10 @@
 body {
     text-align: center;
+    background: black;
+}
+
+h1, h2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    color: orange;
 }

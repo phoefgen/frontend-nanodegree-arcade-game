@@ -70,19 +70,14 @@ Player.prototype.update = function() {
     // Check for collisions with enemies.
     for (var i = 0; i < 3; i++) {
         console.log("Enemy: " + i + "     x: " + allEnemies[i].x + "  y: " + allEnemies[i].y);
-        if ((this.x < allEnemies[i].x + 72) && (this.x + 72 > allEnemies[i].x) ) {
-            if ((this.y < allEnemies[i].y + 72) && (this.y + 72 > allEnemies[i].y)){
-                console.log('this.y :'+ this.y);
-                console.log('this. :' + this.x);
-                console.log('allEnemies[i].x' + allEnemies[i].x);
-                console.log('allEnemies[i].y' + allEnemies[i].y);
-
-                this.reset();
+        if ((this.x < allEnemies[i].x + 65) && (this.x + 65 > allEnemies[i].x) && (this.y < allEnemies[i].y + 72) && (this.y + 72 > allEnemies[i].y)){
+            alert("Eaten by bug! Restarting");
+            this.reset();
             }
         }
-    }
     // Player reaches target.
     if (player.y === -50) {
+        alert("Winner! Restarting!");
         this.reset();
     }
 };
@@ -92,10 +87,11 @@ Player.prototype.reset = function() {
     console.log("At time of reset:  Player X: " + player.x + " Player Y:  " + player.y);
     player.x = 200;
     player.y = 400;
+
+    // Reset Enemies
     for (enemy of allEnemies) {
         enemy.x = -100;
     }
-    alert("Game Over! Restarting!");
     console.log("game over");
 };
 
@@ -104,22 +100,22 @@ Player.prototype.reset = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var numEnemies = 3; // Zero Indexed.
-const startRows = [225, 130, 50];
+var numEnemies = 6; // Zero Indexed.
+const startRows = [225, 130, 50, 50];
 let allEnemies  = [];
 
 do {
     /* Generate Random enemy attributes*/
 
     // Set pseudo-random speed of bugs.
-    let speed = Math.floor(Math.random() * (75 - 100 + 1)) + 75;
+    let speed = Math.floor(Math.random() * (400 - 100 + 1)) + 100;
     // Set pseudo-random offscreen start of bugs
-    let start = Math.floor(Math.random() * (-100 - 0 + 1)) + -100;
+    let start = Math.floor(Math.random() * (-300 - 0 + 1)) + -100;
     // Select starting y position
     startRow = startRows.splice(0,1);
 
     /* Generate random enemy*/
-    let bug = new Enemy(0, startRow, speed);
+    let bug = new Enemy(0, startRow[0], speed);
     allEnemies.push(bug);
     numEnemies --;
 } while (numEnemies > 0);
