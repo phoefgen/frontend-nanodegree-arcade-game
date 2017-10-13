@@ -69,8 +69,16 @@ Player.prototype.render = function() {
 Player.prototype.update = function() {
     // Check for collisions with enemies.
     for (var i = 0; i < 3; i++) {
-        if ((this.x < allEnemies[i].x + 72) && (this.x + 72 > allEnemies[i].x) && (this.y < allEnemies[i].y + 72) && (this.y + 72 > allEnemies[i].y)) {
-           this.reset();
+        console.log("Enemy: " + i + "     x: " + allEnemies[i].x + "  y: " + allEnemies[i].y);
+        if ((this.x < allEnemies[i].x + 72) && (this.x + 72 > allEnemies[i].x) ) {
+            if ((this.y < allEnemies[i].y + 72) && (this.y + 72 > allEnemies[i].y)){
+                console.log('this.y :'+ this.y);
+                console.log('this. :' + this.x);
+                console.log('allEnemies[i].x' + allEnemies[i].x);
+                console.log('allEnemies[i].y' + allEnemies[i].y);
+
+                this.reset();
+            }
         }
     }
     // Player reaches target.
@@ -81,8 +89,7 @@ Player.prototype.update = function() {
 
 Player.prototype.reset = function() {
     // Reset player position.
-    console.log("At time of reset:\n  Player X: " + player.x + " Player Y:  " + player.y);
-    console.log("Enemy  X:  " + this.x + " Enemy Y: " + this.y );
+    console.log("At time of reset:  Player X: " + player.x + " Player Y:  " + player.y);
     player.x = 200;
     player.y = 400;
     for (enemy of allEnemies) {
